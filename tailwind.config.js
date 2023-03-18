@@ -20,7 +20,12 @@ module.exports = {
       square: "square",
       roman: "upper-roman",
     },
-    colors: {},
+    colors: {
+      tealLight: "#2dd4bf",
+      roseLight: "#fb7185",
+      textPrimary: "#191919",
+      textSecondary: "#475569",
+    },
   },
 
   plugins: [require("daisyui"), require("flowbite/plugin")],
