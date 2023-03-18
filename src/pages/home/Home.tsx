@@ -73,6 +73,24 @@ const Home = () => {
     //console.log(sortedCountries);
   };
 
+  //filter small area than lithuania
+  const handleFilterSmallArea = () => {
+    const lithuaniaArea = 65300.0;
+    const filterSmallarArea = countries.filter(
+      (country) => country.area < lithuaniaArea
+    );
+
+    console.log(filterSmallarArea);
+    setCountries(filterSmallarArea);
+  };
+  //filter oceania region
+  const handleFilterOceania = () => {
+    const filterByOceaniaRegion = countries.filter(
+      (country) => country.region === "Oceania"
+    );
+    setCountries(filterByOceaniaRegion);
+  };
+
   return (
     <>
       {/* header section */}
@@ -82,11 +100,17 @@ const Home = () => {
         <div className="container mx-auto w-full md:max-w-7xl px-6 lg:px-8">
           <div className="flex ites-center justify-between">
             <div className="flex items-center">
-              <button className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-normal mr-4">
-                Filter by region
+              <button
+                className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-normal mr-4 capitalize"
+                onClick={handleFilterSmallArea}
+              >
+                Filter small area than Lithuania
               </button>
-              <button className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-normal">
-                Filter small region
+              <button
+                className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-normal"
+                onClick={handleFilterOceania}
+              >
+                Filter Oceania region
               </button>
             </div>
             <select
