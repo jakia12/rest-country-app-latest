@@ -1,6 +1,10 @@
 import React, { useState, useMemo } from "react";
 import { country } from "../../models/models";
 import ReactPaginate from "react-paginate";
+import {
+  MdKeyboardDoubleArrowLeft,
+  MdKeyboardDoubleArrowRight,
+} from "react-icons/md";
 
 interface countryProps {
   filterdCountries: country[];
@@ -68,10 +72,10 @@ const CountryListItem = ({ filterdCountries }: countryProps) => {
         </div>
 
         {/* country  pagination  */}
-        <div className="py-20">
+        <div className="py-10 md:py-20">
           <ReactPaginate
-            previousLabel={"← Previous"}
-            nextLabel={"Next →"}
+            previousLabel={"←"}
+            nextLabel={"→"}
             pageCount={pageCount}
             onPageChange={handlePageClick}
             containerClassName={"pagination"}
