@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { country } from "../../models/models";
 import CountryListItem from "../../components/countryListItem/CountryListItem";
+import { Blocks } from "react-loader-spinner";
 
 const Home = () => {
   //state to store coutries
@@ -157,6 +158,20 @@ const Home = () => {
         </div>
       </section>
 
+      <section
+        className={`py-40 flex justify-center items-center ${
+          isLoading ? "block" : "hidden"
+        }`}
+      >
+        <Blocks
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+        />
+      </section>
       {/* countries card lists */}
 
       <CountryListItem filterdCountries={filterdCountries} />
