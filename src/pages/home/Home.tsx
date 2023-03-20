@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { country } from "../../models/models";
+import CountryListItem from "../../components/countryListItem/CountryListItem";
 
 const Home = () => {
   //state to store coutries
@@ -14,7 +15,12 @@ const Home = () => {
   //sort the coutry by name
   const [sortedName, setSortedName] = useState("");
 
-  const [isSorted, setIsSorted] = useState(false);
+  //sorting boolean
+  const [selected, setSelected] = useState<string>("");
+  //filter smallr area than lithuania
+  const [areaNumber, setAreaNumber] = useState<number | undefined>();
+  //filter oceania region
+  const [regionName, setRegionName] = useState<string>("");
 
   useEffect(() => {
     const fetchCountry = async () => {
@@ -25,10 +31,9 @@ const Home = () => {
 
       console.log(countryData);
       //slice the country into 100
-      const slicedCountries = countryData.slice(0, 100);
 
       //pass the country data to the countries state
-      setCountries(slicedCountries);
+      setCountries(countryData);
       //hide spinner once data is loaded
       setIsLoading(false);
     };
@@ -39,25 +44,13 @@ const Home = () => {
   //sort country by name
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     console.log("clicked");
-    setIsSorted(true);
 
-    const data = e.target as HTMLSelectElement | undefined;
+    const data = e.target as HTMLSelectElement;
     const optionValue = data?.value;
 
-    console.log(typeof optionValue);
-
+    setSelected(optionValue);
     //sort the data ascendedly
-    const ascendedCountries = countries.sort((a: country, b: country) => {
-      if (a.name < b.name) {
-        return -1;
-      }
-      if (a.name > b.name) {
-        return 1;
-      }
-      return 0;
 
-      setCountries(ascendedCountries);
-    });
     //sort the data des
     // const des = countries.sort((a, b) => {
     //   if (optionValue === "DSC") {
@@ -73,24 +66,55 @@ const Home = () => {
     //console.log(sortedCountries);
   };
 
-  //filter small area than lithuania
+  // //filter small area than lithuania
   const handleFilterSmallArea = () => {
     const lithuaniaArea = 65300.0;
-    const filterSmallarArea = countries.filter(
-      (country) => country.area < lithuaniaArea
-    );
-
-    console.log(filterSmallarArea);
-    setCountries(filterSmallarArea);
+    setAreaNumber(lithuaniaArea);
+    console.log(areaNumber);
   };
-  //filter oceania region
+  // //filter oceania region
   const handleFilterOceania = () => {
-    const filterByOceaniaRegion = countries.filter(
-      (country) => country.region === "Oceania"
-    );
-    setCountries(filterByOceaniaRegion);
+    const filteredRegion = "Oceania";
+
+    setRegionName(filteredRegion);
   };
 
+  //set all filter at a time
+
+  const transformedCountries = () => {
+    let modifiedCountries = countries;
+
+    //filter smaller area than lithuania
+
+    if (areaNumber) {
+      modifiedCountries = countries.filter(
+        (country) => country.area < areaNumber
+      );
+    } else {
+      modifiedCountries = countries;
+    }
+
+    //filter oceania region
+    if (regionName) {
+      modifiedCountries = modifiedCountries.filter(
+        (country) => country.region === "Oceania"
+      );
+    } else {
+      modifiedCountries = countries;
+    }
+
+    //sort by name ascendng or descending
+    if (selected) {
+      modifiedCountries = modifiedCountries.sort((a, b) => {
+        const isSorted = selected === "ASC" ? 1 : -1;
+        return isSorted * a.name.localeCompare(b.name);
+      });
+    }
+
+    return modifiedCountries;
+  };
+
+  const filterdCountries = transformedCountries();
   return (
     <>
       {/* header section */}
@@ -102,12 +126,16 @@ const Home = () => {
             <div className="flex items-center">
               <button
                 className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-normal mr-4 capitalize"
+                // onPointerEnter={() => setIsFilteredSmaller(true)}
+                // onPointerLeave={() => setIsFilteredSmaller(false)}
                 onClick={handleFilterSmallArea}
               >
                 Filter small area than Lithuania
               </button>
               <button
                 className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-normal"
+                // onPointerEnter={() => setIsFilteredOceania(true)}
+                // onPointerLeave={() => setIsFilteredOceania(false)}
                 onClick={handleFilterOceania}
               >
                 Filter Oceania region
@@ -131,42 +159,7 @@ const Home = () => {
 
       {/* countries card lists */}
 
-      <section className="py-10">
-        <div className="container mx-auto w-full md:max-w-7xl px-6 lg:px-10">
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="px-6 py-3">
-                    Name
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Region
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Area
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {countries?.map((country) => (
-                  <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                    <td className="px-6 py-4">
-                      {country.name ? country.name : "No data Available"}
-                    </td>
-                    <td className="px-6 py-4">
-                      {country.region ? country.region : "No data Available"}
-                    </td>
-                    <td className="px-6 py-4">
-                      {country.area ? country.area : "No data Available"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+      <CountryListItem filterdCountries={filterdCountries} />
     </>
   );
 };
