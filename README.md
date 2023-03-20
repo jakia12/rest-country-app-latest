@@ -1,4 +1,4 @@
-## Rest Country is an country informal App
+## Rest Country is an country informational App
 
 Live site:  [Rest Country](https://rest-countries-lithuania.netlify.app/)
 
