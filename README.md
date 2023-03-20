@@ -6,8 +6,15 @@ Live site:  [Rest Country](https://rest-countries-lithuania.netlify.app/)
 Rest country is an app which displaya all the detailed information about a country
 
 ## Technology being used:
-*Html
-*
+* Html
+* CSS
+* Tailwind CSS
+* React Js
+* Typescript
+
+## Tools being used:
+* Netlify
+* Github
 
 
 
