@@ -33,7 +33,7 @@ const CountryListItem = ({ filterdCountries }: countryProps) => {
   };
 
   return (
-    <section className="py-10">
+    <section className="py-3">
       <div className="container mx-auto w-full md:max-w-7xl px-6 lg:px-10">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

@@ -123,10 +123,10 @@ const Home = () => {
       {/* fiter and sorting section */}
       <section className="py-14">
         <div className="container mx-auto w-full md:max-w-7xl px-6 lg:px-8">
-          <div className="flex ites-center justify-between">
-            <div className="flex items-center">
+          <div className="md:flex ites-center justify-between">
+            <div className="md:flex items-center">
               <button
-                className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-normal mr-4 capitalize"
+                className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-medium mr-4 capitalize"
                 // onPointerEnter={() => setIsFilteredSmaller(true)}
                 // onPointerLeave={() => setIsFilteredSmaller(false)}
                 onClick={handleFilterSmallArea}
@@ -134,7 +134,7 @@ const Home = () => {
                 Filter small area than Lithuania
               </button>
               <button
-                className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-normal"
+                className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-medium mt-4 md:mt-0"
                 // onPointerEnter={() => setIsFilteredOceania(true)}
                 // onPointerLeave={() => setIsFilteredOceania(false)}
                 onClick={handleFilterOceania}
@@ -143,7 +143,7 @@ const Home = () => {
               </button>
             </div>
             <select
-              className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-normal capitalize"
+              className="py-3 px-6 bg-tealLight text-white hover:bg-roseLight rounded-lg text-sm font-medium capitalize mt-4 md:mt-0"
               onChange={handleChange}
             >
               <option value="">Sort By name</option>
@@ -172,7 +172,7 @@ const Home = () => {
           wrapperClass="blocks-wrapper"
         />
       </section>
-      {/* countries card lists */}
+      {/* countries card list section */}
 
       <CountryListItem filterdCountries={filterdCountries} />
     </>

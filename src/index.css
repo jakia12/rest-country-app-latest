@@ -22,6 +22,11 @@ option[value=""][disabled] {
   display: none;
 }
 
+.option_design {
+  background: white;
+  color: black;
+}
+
 /*****pagination design******/
 h1 {
   color: #2dd4bf;
